@@ -13,12 +13,14 @@ export default function NotePage({
       {allPosts.length ? (
         allPosts.map((post) => (
           <article key={post.slug} className="prose-neutral prose-base sm:prose-lg md:prose-xl lg:prose-2xl mb-10">
-            <Link
-              href="/posts/[slug]"
-              className=" leading-6 font-bold my-0"
-            >
-              <h3 className="!my-0">{post.title}</h3>
-            </Link>
+            {post.slug ? (
+              <Link
+                href={`/posts/${post.slug}`}
+                className=" leading-6 font-bold my-0"
+              >
+                <h3 className="!my-0">{post.title}</h3>
+              </Link>
+            ) : null}
             <p className="!my-0">{post.excerpt}</p>
             {post.date ? (
               <div className="text-gray-400 text-base">
