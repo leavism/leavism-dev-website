@@ -34,9 +34,11 @@ export default function PostPage({
               {post.excerpt ? (
                 <p className="!my-2">{post.excerpt}</p>
               ) : null}
+              {post.date ? (
               <time className="flex !mt-2 text-gray-400 text-base">
-                {distanceToNow(new Date(post.date))}
-              </time>
+              {distanceToNow(new Date(post.date))}
+            </time>
+              ) : null}
             </header>
 
             <div
