@@ -5,6 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import Navbar from "components/Navbar";
+import Head from "next/head";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +14,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <Head>
+        <Navbar/>
+      </Head>
+      <main className="py-14">
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   );
 };
