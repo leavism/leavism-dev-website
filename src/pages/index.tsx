@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { type NextPage } from "next";
 
 import Container from "components/Container";
