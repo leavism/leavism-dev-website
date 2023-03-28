@@ -38,7 +38,7 @@ export default function PostPage({
             </header>
 
             <div
-              className="prose-neutral prose-base sm:prose-base md:prose-lg lg:prose-lg mt-10"
+              className="prose-neutral prose-base sm:prose-base md:prose-lg lg:prose-lg mt-10 prose-a:underline"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </article>
