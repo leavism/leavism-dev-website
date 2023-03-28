@@ -20,10 +20,6 @@ export default function PostPage({
 
   return (
     <Container>
-      <Head>
-        <title>{post.title} | My awesome blog</title>
-      </Head>
-
       {router.isFallback ? (
         <div>Loading…</div>
       ) : (
