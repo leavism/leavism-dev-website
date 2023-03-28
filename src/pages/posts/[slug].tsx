@@ -1,12 +1,11 @@
 import type { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Head from 'next/head'
 // import Comment from 'components/comment'
 import Container from 'components/Container'
 import distanceToNow from 'lib/util/dateRelative'
-import markdownToHtml from 'lib/util/markdownToHtml'
 import { getAllPosts, getPostBySlug } from 'lib/getPost'
+import PostContent from 'components/PostContent'
 
 
 export default function PostPage({
@@ -30,17 +29,17 @@ export default function PostPage({
               {post.excerpt ? (
                 <p className="!my-2">{post.excerpt}</p>
               ) : null}
+
               {post.date ? (
               <time className="flex !mt-2 text-gray-400 text-base">
               {distanceToNow(new Date(post.date))}
             </time>
               ) : null}
             </header>
-
-            <div
-              className="prose-neutral prose-base sm:prose-base md:prose-lg lg:prose-lg mt-10 prose-a:underline"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            
+            <section className="prose-neutral prose-base sm:prose-base md:prose-lg lg:prose-lg mt-10 prose-a:underline">
+              <PostContent post={post}/>
+            </section>
           </article>
 
           {/* <Comment /> */}
@@ -56,7 +55,7 @@ type Params = {
   }
 }
 
-export async function getStaticProps({ params }: Params) {
+export function getStaticProps({ params }: Params) {
   const post = getPostBySlug(params.slug, [
     'slug',
     'title',
@@ -64,7 +63,7 @@ export async function getStaticProps({ params }: Params) {
     'date',
     'content',
   ])
-  const content = await markdownToHtml(post.content || '')
+  const content = post.content;
 
   return {
     props: {

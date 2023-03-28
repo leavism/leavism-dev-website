@@ -30,7 +30,7 @@ All of this leads to my next point, what else is this website missing? I guess I
 * [ ] **More customization to add character to website**– and get my Tailwind CSS on awwww yeah.
 * [ ] **A dark mode** for more Tailwind CSS practice.
 * [ ] **Projects page**
-* [ ] **Replace remark with react-markdown** (maybe?)
+* [x] ~~**Replace remark with react-markdown** (maybe?)~~ March 28: That was easier than expected
 
 That's it for now. Here's a picture of my mom's dog 👋
 
