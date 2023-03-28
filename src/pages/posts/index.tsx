@@ -1,8 +1,6 @@
 import Container from 'components/Container'
 import type { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
-
-import distanceToNow from 'lib/util/dateRelative'
 import { getAllPosts } from 'lib/getPost'
 
 export default function NotePage({
@@ -22,15 +20,23 @@ export default function NotePage({
               </Link>
             ) : null}
             <p className="!my-0">{post.excerpt}</p>
+            {post.slug ? (
+              <Link
+                href={`/posts/${post.slug}`}
+                className="my-0 italic hover:underline text-base text-gray-500"
+              >
+                Read more
+              </Link>
+            ) : null}
             {post.date ? (
               <div className="text-gray-400 text-base">
-                <time>{distanceToNow(new Date(post.date))}</time>
+                <time>{(new Date(post.date)).toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" })}</time>
               </div>
             ) : null}
           </article>
         ))
       ) : (
-        <p>No blog posted yet :/</p>
+        <p>No blog posted yet 😐</p>
       )}
     </Container>
   )
