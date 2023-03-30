@@ -10,13 +10,13 @@ export default function NotePage({
     <Container>
       {allPosts.length ? (
         allPosts.map((post) => (
-          <article key={post.slug} className="prose-neutral prose-base sm:prose-lg md:prose-xl lg:prose-2xl mb-10">
+          <article key={post.slug} className="mb-10">
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
-                className=" leading-6 font-bold my-0"
+                className="leading-6 font-bold my-0"
               >
-                <h3 className="!my-0">{post.title}</h3>
+                <h3 className="my-0">{post.title}</h3>
               </Link>
             ) : null}
             <p className="!my-0">{post.excerpt}</p>
