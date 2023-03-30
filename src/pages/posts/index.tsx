@@ -1,7 +1,7 @@
-import Container from 'components/Container'
-import type { InferGetStaticPropsType } from 'next'
-import Link from 'next/link'
-import { getAllPosts } from 'lib/getPost'
+import Container from "components/Container";
+import type { InferGetStaticPropsType } from "next";
+import Link from "next/link";
+import { getAllPosts } from "lib/getPost";
 
 export default function NotePage({
   allPosts,
@@ -10,27 +10,30 @@ export default function NotePage({
     <Container>
       {allPosts.length ? (
         allPosts.map((post) => (
-          <article key={post.slug} className="prose-neutral prose-base sm:prose-lg md:prose-xl lg:prose-2xl mb-10">
+          <article key={post.slug} className="mb-10">
             {post.slug ? (
-              <Link
-                href={`/posts/${post.slug}`}
-                className=" leading-6 font-bold my-0"
-              >
-                <h3 className="!my-0">{post.title}</h3>
+              <Link href={`/posts/${post.slug}`} className="font-bold">
+                <h3 className="">{post.title}</h3>
               </Link>
             ) : null}
             <p className="!my-0">{post.excerpt}</p>
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
-                className="my-0 italic hover:underline text-base text-gray-500"
+                className="my-0 text-base italic text-gray-500 hover:underline"
               >
                 Read more
               </Link>
             ) : null}
             {post.date ? (
-              <div className="text-gray-400 text-base">
-                <time>{(new Date(post.date)).toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" })}</time>
+              <div className="text-base text-gray-400">
+                <time>
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
               </div>
             ) : null}
           </article>
@@ -39,12 +42,12 @@ export default function NotePage({
         <p>No blog posted yet 😐</p>
       )}
     </Container>
-  )
+  );
 }
 
 export function getStaticProps() {
-  const allPosts = getAllPosts(['slug', 'title', 'excerpt', 'date'])
+  const allPosts = getAllPosts(["slug", "title", "excerpt", "date"]);
   return {
     props: { allPosts },
-  }
+  };
 }
