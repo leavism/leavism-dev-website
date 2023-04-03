@@ -1,6 +1,6 @@
 ---
 title: "Hello World"
-excerpt: "Holy shit I finally have a website. This is my first blog post and no better way to start it than with..."
+excerpt: "I finally have a website! And there's no better way to start off my first post than with a..."
 date: "2023-03-26 20:31"
 ---
 Hello world, my name is Huy and I spent my Spring break learning the T3 stack. Well, mainly just the Next.js part.
@@ -10,26 +10,27 @@ The [T3 stack](https://create.t3.gg/) is a web stack focused on full stack types
 
 As a beginner with little to no experience in web development, picking a stack to learn is like playing Russian roulette with my time and energy. The stack I learn today could be obselete by tomorrow. Like there's a [V3 stack](https://create-v3-app.vercel.app/) now and it's supposedly 10000000x better than the T3 stack sheeeesh 💦
 
-Jokes aside, I gravitated towards T3 because it was centered around typesafety. It's always risky to learn a new technology, but I can safely bet on learning and developing my understanding in CS concepts like typesafety.
+Jokes aside, I gravitated towards T3 because it was centered around typesafety. It's always risky to learn a new technology, but I can safely bet on learning crucial concepts like programming with typesafety.
 
 # So now what?
 I think React looks butt ugly. I mean just look at this code:
 
 /ugly-code-dark.png
 
-**And it used to be worse!** I don't blame React though. Ternaries already look ugly, and then you mix HTML into it and you have yourself spaghetti stains on the carpet.
+**And it used to be worse!** I don't blame React though. Ternaries already look ugly, and then you mix HTML into it and you have yourself spaghetti code.
 
-Besides that, I'm a bit overwhelmed by React. I still don't understand what hooks and routes/routers are yet. But I know what a component is 😭. Added to React, I need to learn how Next.js does data fetching and when/how to use the different rendering methods. I know nothing about auths and APIs, and I have a little bit of experience using Prisma on my [Discord bot](https://github.com/leavism/Baeshaza). I also practiced a little bit of Tailwind CSS making this site.
+I'm a bit overwhelmed by React. It seems like there's a lot to learn *and* it recently made a change in philosophy, which I assume will mean there will be changes in some of the way it implements things as well. Adding to that, I need to learn how Next.js handles data fetching and when/how to use the different rendering methods. I know nothing about auths and APIs, but I have a little bit of experience using Prisma on my [Discord bot](https://github.com/leavism/Baeshaza). I also practiced a little bit of Tailwind CSS making this site.
 
 All of this leads to my next point, what else is this website missing? I guess I can make a quick check list here and see if I ever get to them:
 
 ### Website todo
 
-* [ ] **Implement Discord authentication** and learn NextAuth along the way.
+* [x] ~~**Implement Discord authentication** and learn NextAuth along the way.~~ March 31: Learned a bit about how to use NextAuth.js, but not satisfied. Will consider adding a LinkedIn auth later down the line.
 * [ ] **Comment section for blog posts** and learn Next.js's SSR.
 * [ ] **More customization to add character to website**– and get my Tailwind CSS on awwww yeah.
 * [ ] **A dark mode** for more Tailwind CSS practice.
 * [ ] **Projects page**
+* [ ] **Move this list to a separate page**
 * [x] ~~**Replace remark with react-markdown** (maybe?)~~ March 28: That was easier than expected
 
 That's it for now. Here's a picture of my mom's dog 👋
