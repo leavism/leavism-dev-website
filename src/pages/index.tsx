@@ -12,8 +12,7 @@ const Home: NextPage = () => {
             Hey! My name is <strong>Huy Dang</strong>.
           </h1>
           <p>
-            I'm an undergraduate student at SFSU and I'm trying to learn web dev
-            with the T3 stack!
+            I'm an undergraduate student at SFSU trying to learn web development.
           </p>
         </div>
       </Container>

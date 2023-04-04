@@ -13,10 +13,10 @@ export default function NotePage({
           <article key={post.slug} className="mb-10">
             {post.slug ? (
               <Link href={`/posts/${post.slug}`} className="font-bold">
-                <h3 className="">{post.title}</h3>
+                <h1 className="!my-0">{post.title}</h1>
               </Link>
             ) : null}
-            <p className="!my-0">{post.excerpt}</p>
+            <p className="!my-1">{post.excerpt}</p>
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
