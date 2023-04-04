@@ -28,7 +28,7 @@ All of this leads to my next point, what else is this website missing? I guess I
 * [x] ~~**Implement Discord authentication** and learn NextAuth along the way.~~ March 31: Learned a bit about how to use NextAuth.js, but not satisfied. Will consider adding a LinkedIn auth later down the line.
 * [ ] **Comment section for blog posts** and learn Next.js's SSR.
 * [ ] **More customization to add character to website**– and get my Tailwind CSS on awwww yeah.
-* [ ] **A dark mode** for more Tailwind CSS practice.
+* [x] ~~**A dark mode** for more Tailwind CSS practice.~~ April 4: Tailwind made this easy
 * [ ] **Projects page**
 * [ ] **Move this list to a separate page**
 * [x] ~~**Replace remark with react-markdown** (maybe?)~~ March 28: That was easier than expected

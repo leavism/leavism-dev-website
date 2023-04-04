@@ -27,7 +27,7 @@ function NavButton({ children, href, ...props}: NavButtonProps) {
 
 	return (
 		<div className="navButton">
-			<Link href={href} className={active + "border border-solid border-transparent px-2 py-1 rounded-full w-[5rem] flex justify-center transition-all duration-150 ease-out hover:shadow-[3px_3px_0px] hover:-translate-x-1 hover:border-neutral-700 focus-visible:outline-offset-1"} {...props}>{children}</Link>
+			<Link href={href} className={active + "border border-solid border-transparent px-2 py-1 rounded-full w-[5rem] flex justify-center transition-all duration-150 ease-out hover:shadow-[3px_3px_0px] hover:-translate-x-1 hover:border-gray-700 dark:hover:border-white dark:border focus-visible:outline-offset-1"} {...props}>{children}</Link>
 		</div>
 	)
 }
