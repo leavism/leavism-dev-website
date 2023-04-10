@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { type NextPage } from "next";
-
-import Container from "components/Container";
+import { type NextPage } from 'next';
+import Container from 'components/Container';
 
 const Home: NextPage = () => {
   return (
