@@ -20,7 +20,7 @@ export default function NotePage({
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
-                className="my-0 text-base italic text-gray-500 hover:underline"
+                className="!no-underline font-medium relative before:bg-neutral-300 dark:before:bg-neutral-500 before:absolute before:-left-0.5 before:-bottom-0.5 before:w-full before:h-2.5 before:-z-10 before:ease-in-out before:duration-300 before:hover:bottom-0 before:hover:h-full"
               >
                 Read more
               </Link>
