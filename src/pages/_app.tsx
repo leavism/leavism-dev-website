@@ -13,18 +13,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    // <SessionProvider session={session}>
-    //   <Head>
-    //     <Navbar/>
-    //   </Head>
-    //   <main className="py-14">
-    //     <Component {...pageProps} />
-    //   </main>
-    // </SessionProvider>
-    <>
+    <SessionProvider session={session}>
       <Navbar/>
       <Component {...pageProps} />
-    </>
+    </SessionProvider>
+    // <>
+    //   <Navbar/>
+    //   <Component {...pageProps} />
+    // </>
   );
 };
 
