@@ -3,7 +3,7 @@ import type { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { getAllPosts } from "lib/getPost";
 
-export default function NotePage({
+export default function PostsPage({
   allPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
