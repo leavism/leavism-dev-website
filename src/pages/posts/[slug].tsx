@@ -1,7 +1,7 @@
 import type { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-// import Comment from 'components/comment'
+import Comment from 'components/Comment'
 import Container from 'components/Container'
 import distanceToNow from 'lib/util/dateRelative'
 import { getAllPosts, getPostBySlug } from 'lib/getPost'
@@ -42,7 +42,7 @@ export default function PostPage({
             </section>
           </article>
 
-          {/* <Comment /> */}
+          <Comment />
         </div>
       )}
     </Container>
