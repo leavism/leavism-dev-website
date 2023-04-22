@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import Navbar from "components/Navbar";
-import Head from "next/head";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,10 +16,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <Navbar/>
       <Component {...pageProps} />
     </SessionProvider>
-    // <>
-    //   <Navbar/>
-    //   <Component {...pageProps} />
-    // </>
   );
 };
 
