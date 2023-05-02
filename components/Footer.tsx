@@ -4,9 +4,7 @@ type FooterProps = {
 
 export default function Footer({ children }: FooterProps) {
 	return (
-		<footer
-			className="max-w-2xl mt-auto mx-auto prose-sm pt-5"
-		>
+		<footer className="max-w-2xl mt-auto mx-auto prose-sm pt-32">
 			{children}
 		</footer>
 	)
