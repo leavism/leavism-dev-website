@@ -12,7 +12,7 @@ export default function Document() {
       <body className="bg-white text-gray-700 antialiased prose-base sm:prose-base md:prose-lg lg:prose-xl dark:bg-neutral-800 dark:text-white flex flex-col min-h-screen">
         <Main />
         <NextScript />
-        <Footer>Giahuy's Website</Footer>
+        <Footer>Giahuy&apos;s Website</Footer>
       </body>
     </Html>
   )
