@@ -1,17 +1,18 @@
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure, publicProcedure} from '../trpc';
 
-export const CommentRouter = createTRPCRouter({
-	getAll: publicProcedure.query(async ({ ctx }) => {
+export const commentRouter = createTRPCRouter({
+	listComment: publicProcedure.query(async ({ ctx }) => {
 		try {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-			return await ctx.prisma.comment.findMany({
+			const comments = await ctx.prisma.comment.findMany({
 				select: {
 					id: true,
 					authorId: true,
 					content: true
 				}
 			})
+			return comments;
 		} catch (error) {
 			console.log(error);
 		}
