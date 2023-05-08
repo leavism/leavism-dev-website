@@ -1,5 +1,5 @@
 import CommentAuth from './AuthButton';
-import CommentDisplay from './Display';
+import CommentList from './List';
 import CommentForm from './Form';
 
 export default function Comment() {
@@ -7,7 +7,7 @@ export default function Comment() {
     <>
       <CommentAuth />
       <CommentForm />
-      <CommentDisplay />
+      <CommentList />
     </>
   );
 }

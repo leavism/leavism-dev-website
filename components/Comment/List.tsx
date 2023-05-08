@@ -1,6 +1,6 @@
 import { api } from '~/utils/api';
 
-export default function CommentDisplay() {
+export default function CommentList() {
   const { data: comments } = api.comment.listComment.useQuery();
   return (
     <>
