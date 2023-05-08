@@ -1,4 +1,4 @@
-import CommentAuth from './Auth';
+import CommentAuth from './AuthButton';
 import CommentDisplay from './Display';
 import CommentForm from './Form';
 

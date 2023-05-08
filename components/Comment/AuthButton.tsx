@@ -3,14 +3,11 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 type authButtonProps = {
-  sessionData: Session | null
-  children: React.ReactNode
-}
+  sessionData: Session | null;
+  children: React.ReactNode;
+};
 
-function AuthButton({
-  sessionData,
-  children,
-}: authButtonProps) {
+function AuthButton({ sessionData, children }: authButtonProps) {
   return (
     <button
       onClick={sessionData ? () => void signOut() : () => void signIn()}
@@ -18,7 +15,7 @@ function AuthButton({
     >
       {children}
     </button>
-  )
+  );
 }
 
 export default function CommentAuth() {
@@ -37,15 +34,11 @@ export default function CommentAuth() {
               alt=""
             />
           ) : null}
-        <AuthButton sessionData={sessionData}>
-          Sign out
-        </AuthButton>
+          <AuthButton sessionData={sessionData}>Sign out</AuthButton>
         </div>
       ) : (
-        <div className="flex flex-row items-centers justify-end">
-          <AuthButton sessionData={sessionData}>
-            Sign in to comment
-          </AuthButton>
+        <div className="items-centers flex flex-row justify-end">
+          <AuthButton sessionData={sessionData}>Sign in to comment</AuthButton>
         </div>
       )}
     </>
