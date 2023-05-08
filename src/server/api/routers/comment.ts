@@ -4,7 +4,6 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 export const commentRouter = createTRPCRouter({
   listComment: publicProcedure.query(async ({ ctx }) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       const comments = await ctx.prisma.comment.findMany({
         select: {
           id: true,
@@ -27,7 +26,6 @@ export const commentRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         await ctx.prisma.comment.create({
           data: {
             content: input.content,

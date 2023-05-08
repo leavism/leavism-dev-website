@@ -1,9 +1,7 @@
 import { api } from '~/utils/api';
 
 export default function CommentDisplay() {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data: comments } = api.comment.listComment.useQuery();
-
   return (
     <>
       {comments?.map((comment) => (
