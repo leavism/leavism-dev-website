@@ -1,7 +1,7 @@
-import Container from "components/Container";
-import type { InferGetStaticPropsType } from "next";
-import Link from "next/link";
-import { getAllPosts } from "lib/getPost";
+import Container from 'components/Container';
+import type { InferGetStaticPropsType } from 'next';
+import Link from 'next/link';
+import { getAllPosts } from 'lib/getPost';
 
 export default function PostsPage({
   allPosts,
@@ -20,7 +20,7 @@ export default function PostsPage({
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
-                className="!no-underline font-medium relative before:bg-neutral-300 dark:before:bg-neutral-500 before:absolute before:-left-0.5 before:-bottom-0.5 before:w-full before:h-2.5 before:-z-10 before:ease-in-out before:duration-300 before:hover:bottom-0 before:hover:h-full"
+                className="relative font-medium !no-underline before:absolute before:-left-0.5 before:-bottom-0.5 before:-z-10 before:h-2.5 before:w-full before:bg-neutral-300 before:duration-300 before:ease-in-out before:hover:bottom-0 before:hover:h-full dark:before:bg-neutral-500"
               >
                 Read more
               </Link>
@@ -28,10 +28,10 @@ export default function PostsPage({
             {post.date ? (
               <div className="text-base text-gray-400">
                 <time>
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                  {new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                   })}
                 </time>
               </div>
@@ -46,7 +46,7 @@ export default function PostsPage({
 }
 
 export function getStaticProps() {
-  const allPosts = getAllPosts(["slug", "title", "excerpt", "date"]);
+  const allPosts = getAllPosts(['slug', 'title', 'excerpt', 'date']);
   return {
     props: { allPosts },
   };

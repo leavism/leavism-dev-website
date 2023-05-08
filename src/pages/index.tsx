@@ -11,7 +11,8 @@ const Home: NextPage = () => {
             Hey! My name is <strong>Huy Dang</strong>.
           </h1>
           <p>
-            I'm an undergraduate student at SFSU trying to learn web development.
+            I'm an undergraduate student at SFSU trying to learn web
+            development.
           </p>
         </div>
       </Container>

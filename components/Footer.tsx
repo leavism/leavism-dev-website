@@ -1,11 +1,11 @@
 type FooterProps = {
-	children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export default function Footer({ children }: FooterProps) {
-	return (
-		<footer className="max-w-2xl mt-auto mx-auto prose-sm pt-32">
-			{children}
-		</footer>
-	)
+  return (
+    <footer className="prose-sm mx-auto mt-auto max-w-2xl pt-32">
+      {children}
+    </footer>
+  );
 }

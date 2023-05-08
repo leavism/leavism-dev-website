@@ -1,5 +1,5 @@
-import Footer from 'components/Footer'
-import { Html, Head, Main, NextScript } from 'next/document'
+import Footer from 'components/Footer';
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -9,11 +9,11 @@ export default function Document() {
         <meta name="robots" content="follow, index" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       </Head>
-      <body className="bg-white text-gray-700 antialiased prose-base sm:prose-base md:prose-lg lg:prose-xl dark:bg-neutral-800 dark:text-white flex flex-col min-h-screen">
+      <body className="prose-base flex min-h-screen flex-col bg-white text-gray-700 antialiased sm:prose-base md:prose-lg lg:prose-xl dark:bg-neutral-800 dark:text-white">
         <Main />
         <NextScript />
         <Footer>Giahuy&apos;s Website</Footer>
       </body>
     </Html>
-  )
+  );
 }
