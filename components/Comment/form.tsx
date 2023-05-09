@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { api } from '../../src/utils/api';
+import { api } from '~/utils/api';
 import { type ChangeEvent, useState } from 'react';
 
 export default function CommentForm() {
