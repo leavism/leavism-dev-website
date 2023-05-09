@@ -2,15 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  relationMode = "prisma"
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
-
 
 model Example {
     id        String   @id @default(cuid())
@@ -20,22 +19,23 @@ model Example {
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
+    id                String    @id @default(cuid())
     userId            String
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
+    refresh_token     String?   @db.Text
+    access_token      String?   @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? @db.Text
+    id_token          String?   @db.Text
     session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    comments          Comment[]
 
-    @@index([userId])
     @@unique([provider, providerAccountId])
+    @@index([userId])
 }
 
 model Session {
@@ -44,7 +44,7 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    
+
     @@index([userId])
 }
 
@@ -56,26 +56,27 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    comments Comment[]
 }
 
 model Post {
-    id Int @id @default(autoincrement())
-    title String
-    slug String
+    id      Int    @id @default(autoincrement())
+    title   String
+    slug    String
     content String
-    comments Comment[]
+    // comments Comment[]
 }
 
 model Comment {
-    id Int @id @default(autoincrement())
-    comment String
-    authorId String
-    author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    postId Int
-    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+    id        Int      @id @default(autoincrement())
+    content   String
+    authorId  String
+    author    Account  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    // postId Int
+    // post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-    @@index([postId])
+    // @@index([postId])
     @@index([authorId])
 }
 
