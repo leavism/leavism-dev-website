@@ -38,7 +38,7 @@ export default function CommentAuth() {
         </div>
       ) : (
         <div className="items-centers flex flex-row justify-end">
-          <AuthButton sessionData={sessionData}>Sign in to comment</AuthButton>
+          <AuthButton sessionData={sessionData}>Sign in</AuthButton>
         </div>
       )}
     </>
