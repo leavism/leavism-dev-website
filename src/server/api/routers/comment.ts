@@ -9,6 +9,10 @@ export const commentRouter = createTRPCRouter({
           id: true,
           authorId: true,
           content: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       });
       return comments;
