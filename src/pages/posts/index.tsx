@@ -2,6 +2,7 @@ import Container from 'components/Container';
 import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { getAllPosts } from 'lib/getPost';
+import { api } from '~/utils/api';
 
 export default function PostsPage({
   allPosts,
@@ -46,8 +47,8 @@ export default function PostsPage({
 }
 
 export function getStaticProps() {
-  const allPosts = getAllPosts(['slug', 'title', 'excerpt', 'date']);
+  const { data: posts } = api.post.listPosts.useQuery();
   return {
-    props: { allPosts },
+    props: { posts },
   };
 }
