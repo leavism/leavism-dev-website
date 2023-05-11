@@ -1,9 +1,18 @@
-import { type Post } from 'interfaces';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import remarkImages from 'remark-images';
 import Link from 'next/link';
+
+type Post = {
+  slug?: string;
+  title?: string;
+  author?: string;
+  date?: Date;
+  content?: string;
+  excerpt?: string;
+  [key: string]: unknown;
+};
 
 export default function PostContent({ post }: { post: Post }) {
   return (
