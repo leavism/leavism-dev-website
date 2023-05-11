@@ -1,15 +1,12 @@
 import Container from 'components/Container';
-import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import { getAllPosts } from 'lib/getPost';
 import { api } from '~/utils/api';
 
-export default function PostsPage({
-  allPosts,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function PostsPage() {
+  const { data: allPosts } = api.post.listPosts.useQuery();
   return (
     <Container>
-      {allPosts.length ? (
+      {allPosts?.length ? (
         allPosts.map((post) => (
           <article key={post.slug} className="mb-10">
             {post.slug ? (
@@ -17,7 +14,7 @@ export default function PostsPage({
                 <h1 className="!my-0">{post.title}</h1>
               </Link>
             ) : null}
-            <p className="!my-1">{post.excerpt}</p>
+            <p className="!my-1">{post.description}</p>
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
@@ -26,10 +23,10 @@ export default function PostsPage({
                 Read more
               </Link>
             ) : null}
-            {post.date ? (
+            {post.createdAt ? (
               <div className="text-base text-gray-400">
                 <time>
-                  {new Date(post.date).toLocaleDateString('en-US', {
+                  {new Date(post.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -44,11 +41,4 @@ export default function PostsPage({
       )}
     </Container>
   );
-}
-
-export function getStaticProps() {
-  const { data: posts } = api.post.listPosts.useQuery();
-  return {
-    props: { posts },
-  };
 }

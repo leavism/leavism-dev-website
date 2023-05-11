@@ -1,16 +1,16 @@
-import type { InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
+import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import Comment from 'components/Comment';
 import Container from 'components/Container';
 import distanceToNow from 'lib/util/dateRelative';
-import { getAllPosts, getPostBySlug } from 'lib/getPost';
 import PostContent from 'components/PostContent';
+import { api } from '~/utils/api';
 
-export default function PostPage({
-  post,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
+export default function PostPage() {
+  const router: NextRouter = useRouter();
+  const postSlug = api.post.getPostBySlug;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const { data: post } = postSlug.useQuery({ slug: router.query.slug });
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -24,12 +24,14 @@ export default function PostPage({
         <div>
           <article>
             <header className="prose-base prose-zinc sm:prose-lg md:prose-xl lg:prose-2xl">
-              <h1 className="!mb-0 font-bold">{post.title}</h1>
-              {post.excerpt ? <p className="!my-2">{post.excerpt}</p> : null}
+              <h1 className="!mb-0 font-bold">{post?.title}</h1>
+              {post?.description ? (
+                <p className="!my-2">{post?.description}</p>
+              ) : null}
 
-              {post.date ? (
+              {post?.createdAt ? (
                 <time className="!mt-2 flex text-base text-gray-400">
-                  {distanceToNow(new Date(post.date))}
+                  {distanceToNow(new Date(post?.createdAt))}
                 </time>
               ) : null}
             </header>
@@ -44,45 +46,4 @@ export default function PostPage({
       )}
     </Container>
   );
-}
-
-type Params = {
-  params: {
-    slug: string;
-  };
-};
-
-export function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, [
-    'slug',
-    'title',
-    'excerpt',
-    'date',
-    'content',
-  ]);
-  const content = post.content;
-
-  return {
-    props: {
-      post: {
-        ...post,
-        content,
-      },
-    },
-  };
-}
-
-export function getStaticPaths() {
-  const posts = getAllPosts(['slug']);
-
-  return {
-    paths: posts.map(({ slug }) => {
-      return {
-        params: {
-          slug,
-        },
-      };
-    }),
-    fallback: false,
-  };
 }

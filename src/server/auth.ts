@@ -20,13 +20,12 @@ declare module 'next-auth' {
     user: {
       id: string;
       // ...other properties
-      // role: UserRole;
+      // role: string;
     } & DefaultSession['user'];
   }
 
   // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
+  //   role: string;
   // }
 }
 
@@ -40,7 +39,7 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
+        session.user.role = user.role;
       }
       return session;
     },
@@ -50,6 +49,16 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
+      profile(profile) {
+        // TODO: Make the typesafe
+        return {
+          id: profile.id,
+          name: profile.username,
+          email: profile.email,
+          image: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
+          role: profile.id === env.ADMIN_DISCORD_ID ? 'admin' : 'user',
+        };
+      },
     }),
     /**
      * ...add more providers here.
