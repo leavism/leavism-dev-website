@@ -9,7 +9,7 @@ export const postRouter = createTRPCRouter({
           id: true,
           title: true,
           slug: true,
-          author: true,
+          authorId: true,
           description: true,
           createdAt: true,
         },
@@ -47,7 +47,7 @@ export const postRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  getPostBySlug: protectedProcedure
+  getPostBySlug: publicProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -56,11 +56,12 @@ export const postRouter = createTRPCRouter({
     .query(async (opts) => {
       const { input, ctx } = opts;
       try {
-        await ctx.prisma.post.findUnique({
+        const post = await ctx.prisma.post.findUnique({
           where: {
             slug: input.slug,
           },
         });
+        return post;
       } catch (error) {
         console.log(error);
       }
