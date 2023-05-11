@@ -6,30 +6,41 @@ import {
 } from '~/server/api/trpc';
 
 export const commentRouter = createTRPCRouter({
-  listComment: publicProcedure.query(async ({ ctx }) => {
-    try {
-      const comments = await ctx.prisma.comment.findMany({
-        select: {
-          id: true,
-          authorId: true,
-          content: true,
-          createdAt: true,
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
-      return comments;
-    } catch (error) {
-      console.log(error);
-    }
-  }),
+  listComments: publicProcedure
+    .input(
+      z.object({
+        postId: z.number(),
+      })
+    )
+    .query(async (opts) => {
+      const { ctx, input } = opts;
+      try {
+        const comments = await ctx.prisma.comment.findMany({
+          select: {
+            id: true,
+            authorId: true,
+            content: true,
+            createdAt: true,
+            postId: true,
+          },
+          where: {
+            postId: input.postId,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        });
+        return comments;
+      } catch (error) {
+        console.log(error);
+      }
+    }),
   postComment: protectedProcedure
     .input(
       z.object({
         content: z.string(),
         authorId: z.string(),
-        // postId: z.number()
+        postId: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -38,7 +49,7 @@ export const commentRouter = createTRPCRouter({
           data: {
             content: input.content,
             authorId: ctx.session.user.id,
-            // postId: input.postId
+            postId: input.postId,
           },
         });
       } catch (error) {

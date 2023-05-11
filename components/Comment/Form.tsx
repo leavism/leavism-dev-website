@@ -1,21 +1,26 @@
 import { useSession } from 'next-auth/react';
 import { api } from '~/utils/api';
 import { type ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function CommentForm() {
   const { data: sessionData } = useSession();
   const [content, setContent] = useState('');
+  const router = useRouter();
   const postComment = api.comment.postComment.useMutation();
+  const postRouter = api.post.getPostBySlug;
+  const { data: post } = postRouter.useQuery({ slug: router.query.slug });
 
   function handleOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setContent(event.target.value);
   }
 
-  function handleSubmit() {
+  function handleSubmit(): void {
     if (sessionData) {
       postComment.mutate({
         content,
         authorId: sessionData.user.id,
+        postId: post?.id ?? -1,
       });
     }
   }

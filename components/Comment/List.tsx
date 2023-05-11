@@ -1,9 +1,16 @@
 import { api } from '~/utils/api';
 import Image from 'next/image';
 import distanceToNow from 'lib/util/dateRelative';
+import { useRouter } from 'next/router';
 
 export default function CommentList() {
-  const { data: comments } = api.comment.listComment.useQuery();
+  const router = useRouter();
+  const postRouter = api.post.getPostBySlug;
+  const { data: post } = postRouter.useQuery({ slug: router.query.slug });
+
+  const { data: comments } = api.comment.listComments.useQuery({
+    postId: post?.id,
+  });
   return (
     <>
       <div className="m-1 grid grid-flow-row gap-6">
