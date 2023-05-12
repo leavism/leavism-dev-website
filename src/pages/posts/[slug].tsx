@@ -9,12 +9,15 @@ import { api } from '~/utils/api';
 export default function PostPage() {
   const router: NextRouter = useRouter();
   const postSlug = api.post.getPostBySlug;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const { data: post } = postSlug.useQuery({ slug: router.query.slug });
+  const { data: post } = postSlug.useQuery({
+    slug: router.query.slug as string,
+  });
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
+
+  if (!post) return <ErrorPage statusCode={404} />;
 
   return (
     <Container>

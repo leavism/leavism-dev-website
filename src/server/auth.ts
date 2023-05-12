@@ -3,6 +3,7 @@ import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
+  type Profile,
 } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -18,15 +19,18 @@ import { prisma } from '~/server/db';
 declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
+      // This is the interface for user propertie in the session
+      // This is used in line ~42ish in the callback of authOptions
       id: string;
-      // ...other properties
-      // role: string;
+      role: string;
     } & DefaultSession['user'];
   }
 
-  // interface User {
-  //   role: string;
-  // }
+  interface Profile {
+    id: string;
+    username: string;
+    avatar: string;
+  }
 }
 
 /**
@@ -38,8 +42,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ session, user }) {
       if (session.user) {
+        // Add whatever data you need in the session here
         session.user.id = user.id;
-        session.user.role = user.role;
       }
       return session;
     },
@@ -49,8 +53,7 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
-      profile(profile) {
-        // TODO: Make the typesafe
+      profile(profile: Profile) {
         return {
           id: profile.id,
           name: profile.username,

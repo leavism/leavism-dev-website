@@ -6,11 +6,14 @@ import { useRouter } from 'next/router';
 export default function CommentList() {
   const router = useRouter();
   const postRouter = api.post.getPostBySlug;
-  const { data: post } = postRouter.useQuery({ slug: router.query.slug });
+  const { data: post } = postRouter.useQuery({
+    slug: router.query.slug as string,
+  });
 
   const { data: comments } = api.comment.listComments.useQuery({
-    postId: post?.id,
+    postId: post?.id ?? -1,
   });
+
   return (
     <>
       <div className="m-1 grid grid-flow-row gap-6">
