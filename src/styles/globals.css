@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 li.task-list-item {
-	@apply list-none my-0;
+  @apply my-0 list-none;
 }
 
-li.task-list-item input[type="checkbox"] {
-	@apply my-0;
+li.task-list-item input[type='checkbox'] {
+  @apply my-0;
 }
