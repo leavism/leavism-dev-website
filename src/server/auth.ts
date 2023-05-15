@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           name: profile.username,
           email: profile.email,
           image: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
-          role: profile.id === env.ADMIN_DISCORD_ID ? 'admin' : 'user',
+          role: profile.id === env.ADMIN_DISCORD_ID ? 'ADMIN' : 'USER',
         };
       },
     }),
