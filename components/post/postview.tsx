@@ -3,16 +3,7 @@ import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import remarkImages from 'remark-images';
 import Link from 'next/link';
-
-type Post = {
-  slug?: string;
-  title?: string;
-  author?: string;
-  date?: Date;
-  content?: string;
-  excerpt?: string;
-  [key: string]: unknown;
-};
+import { Post } from 'lib/util/interface';
 
 export default function PostView({ post }: { post: Post }) {
   return (
