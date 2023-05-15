@@ -1,9 +1,9 @@
 import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
-import Comment from 'components/Comment';
-import Container from 'components/Container';
+import Comment from 'components/comment';
+import Container from 'components/container';
 import distanceToNow from 'lib/util/dateRelative';
-import PostContent from 'components/PostContent';
+import PostView from 'components/postview';
 import { api } from '~/utils/api';
 
 export default function PostPage() {
@@ -40,7 +40,7 @@ export default function PostPage() {
             </header>
 
             <section className="prose-base prose-neutral mt-10 sm:prose-base md:prose-lg lg:prose-lg prose-a:underline">
-              <PostContent post={post} />
+              <PostView post={post} />
             </section>
           </article>
 

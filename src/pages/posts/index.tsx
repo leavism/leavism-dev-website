@@ -1,4 +1,4 @@
-import Container from 'components/Container';
+import Container from 'components/container';
 import Link from 'next/link';
 import { api } from '~/utils/api';
 
@@ -18,7 +18,7 @@ export default function PostsPage() {
             {post.slug ? (
               <Link
                 href={`/posts/${post.slug}`}
-                className="relative font-medium !no-underline before:absolute before:-left-0.5 before:-bottom-0.5 before:-z-10 before:h-2.5 before:w-full before:bg-neutral-300 before:duration-300 before:ease-in-out before:hover:bottom-0 before:hover:h-full dark:before:bg-neutral-500"
+                className="relative font-medium !no-underline before:absolute before:-bottom-0.5 before:-left-0.5 before:-z-10 before:h-2.5 before:w-full before:bg-neutral-300 before:duration-300 before:ease-in-out before:hover:bottom-0 before:hover:h-full dark:before:bg-neutral-500"
               >
                 Read more
               </Link>
