@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const postRouter = createTRPCRouter({
-  listPosts: publicProcedure.query(async ({ ctx }) => {
+  listBlog: publicProcedure.query(async ({ ctx }) => {
     try {
       const posts = await ctx.prisma.post.findMany({
         select: {
@@ -22,7 +22,7 @@ export const postRouter = createTRPCRouter({
       console.log(error);
     }
   }),
-  postPost: protectedProcedure
+  postBlog: protectedProcedure
     .input(
       z.object({
         title: z.string(),
@@ -47,7 +47,7 @@ export const postRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  getPostBySlug: publicProcedure
+  getBlogBySlug: publicProcedure
     .input(
       z.object({
         slug: z.string(),

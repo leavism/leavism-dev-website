@@ -1,7 +1,7 @@
 import Container from 'components/container';
 import ContentLoader from 'react-content-loader';
 
-export const IndexLoader = () => (
+export const LightBlogIndexLoader = () => (
   <Container>
     <ContentLoader
       viewBox="0 0 50% 100%"
@@ -18,7 +18,7 @@ export const IndexLoader = () => (
   </Container>
 );
 
-export const DarkIndexLoader = () => (
+export const DarkBlogIndexLoader = () => (
   <Container>
     <ContentLoader
       viewBox="0 0 50% 100%"

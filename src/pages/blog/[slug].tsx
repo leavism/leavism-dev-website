@@ -4,20 +4,20 @@ import distanceToNow from 'lib/util/dateRelative';
 import { api } from '~/utils/api';
 import Comment from 'components/comment';
 import Container from 'components/container';
-import PostView from 'components/post/postview';
-import { PostLoader, DarkPostLoader } from 'components/post/postloader';
+import BlogView from 'components/blog/blogview';
+import { BlogLoader, DarkPostLoader } from 'components/blog/blogloader';
 import { useTheme } from 'next-themes';
 
 export default function PostPage() {
   const router: NextRouter = useRouter();
-  const postSlug = api.post.getPostBySlug;
+  const postSlug = api.post.getBlogBySlug;
   const { data: post, isLoading } = postSlug.useQuery({
     slug: router.query.slug as string,
   });
   const { systemTheme } = useTheme();
 
   if (isLoading) {
-    if (systemTheme === 'light') return <PostLoader />;
+    if (systemTheme === 'light') return <BlogLoader />;
     else if (systemTheme === 'dark') return <DarkPostLoader />;
   }
   if (!post) return <ErrorPage statusCode={404} />;
@@ -40,7 +40,7 @@ export default function PostPage() {
           </header>
 
           <section className="prose-base prose-neutral mt-10 sm:prose-base md:prose-lg lg:prose-lg prose-a:underline">
-            <PostView post={post} />
+            <BlogView post={post} />
           </section>
         </article>
 

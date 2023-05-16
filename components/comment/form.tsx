@@ -8,7 +8,7 @@ export default function CommentForm() {
   const [content, setContent] = useState('');
   const router = useRouter();
   const postComment = api.comment.postComment.useMutation();
-  const postRouter = api.post.getPostBySlug;
+  const postRouter = api.post.getBlogBySlug;
   const { data: post } = postRouter.useQuery({
     slug: router.query.slug as string,
   });

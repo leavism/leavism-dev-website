@@ -8,7 +8,7 @@ export default function Navbar() {
       <Container>
         <nav className="flex space-x-7 py-1">
           <NavButton href="/">Home</NavButton>
-          <NavButton href="/posts">Blog</NavButton>
+          <NavButton href="/blog">Blog</NavButton>
         </nav>
       </Container>
     </header>

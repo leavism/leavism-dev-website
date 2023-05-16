@@ -1,7 +1,7 @@
 import Container from 'components/container';
 import ContentLoader from 'react-content-loader';
 
-export const PostLoader = () => (
+export const BlogLoader = () => (
   <Container>
     <ContentLoader
       viewBox="0 0 50vh 100%"

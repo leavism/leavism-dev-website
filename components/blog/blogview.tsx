@@ -3,9 +3,9 @@ import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import remarkImages from 'remark-images';
 import Link from 'next/link';
-import { Post } from 'lib/util/interface';
+import { type Post } from 'lib/util/interface';
 
-export default function PostView({ post }: { post: Post }) {
+export default function BlogView({ post }: { post: Post }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkImages]}
