@@ -58,7 +58,9 @@ export const authOptions: NextAuthOptions = {
           id: profile.id,
           name: profile.username,
           email: profile.email,
-          image: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
+          image: profile.avatar
+            ? `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+            : null,
           role: profile.id === env.ADMIN_DISCORD_ID ? 'ADMIN' : 'USER',
         };
       },
