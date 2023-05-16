@@ -1,9 +1,18 @@
 import Container from 'components/container';
+import { IndexLoader, DarkIndexLoader } from 'components/post/indexloader';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { api } from '~/utils/api';
 
 export default function PostsPage() {
-  const { data: allPosts } = api.post.listPosts.useQuery();
+  const { data: allPosts, isLoading } = api.post.listPosts.useQuery();
+  const { systemTheme } = useTheme();
+
+  if (isLoading) {
+    if (systemTheme === 'light') return <IndexLoader />;
+    else if (systemTheme === 'dark') return <DarkIndexLoader />;
+  }
+
   return (
     <Container>
       {allPosts?.length ? (

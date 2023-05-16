@@ -5,7 +5,8 @@ import { api } from '~/utils/api';
 import Comment from 'components/comment';
 import Container from 'components/container';
 import PostView from 'components/post/postview';
-import PostLoader from 'components/post/postloader';
+import { PostLoader, DarkPostLoader } from 'components/post/postloader';
+import { useTheme } from 'next-themes';
 
 export default function PostPage() {
   const router: NextRouter = useRouter();
@@ -13,8 +14,12 @@ export default function PostPage() {
   const { data: post, isLoading } = postSlug.useQuery({
     slug: router.query.slug as string,
   });
+  const { systemTheme } = useTheme();
 
-  if (isLoading) return <PostLoader />;
+  if (isLoading) {
+    if (systemTheme === 'light') return <PostLoader />;
+    else if (systemTheme === 'dark') return <DarkPostLoader />;
+  }
   if (!post) return <ErrorPage statusCode={404} />;
 
   return (

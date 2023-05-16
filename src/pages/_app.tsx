@@ -5,6 +5,7 @@ import { api } from '~/utils/api';
 import '~/styles/globals.css';
 import Navbar from 'components/navbar';
 import Footer from 'components/footer';
+import { ThemeProvider } from 'next-themes';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,7 +14,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <Navbar />
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SessionProvider>
   );
 };
