@@ -2,7 +2,7 @@ import Container from 'components/Container';
 import {
   LightBlogIndexLoader,
   DarkBlogIndexLoader,
-} from 'components/BlogIndexLoader';
+} from 'components/Blog/BlogIndexLoader';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { api } from '~/utils/api';

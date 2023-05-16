@@ -5,7 +5,7 @@ import { api } from '~/utils/api';
 import Comment from 'components/Comment';
 import Container from 'components/Container';
 import BlogView from 'components/Blog/BlogView';
-import { BlogLoader, DarkPostLoader } from 'components/BlogLoader';
+import { BlogLoader, DarkPostLoader } from 'components/Blog/BlogLoader';
 import { useTheme } from 'next-themes';
 
 export default function PostPage() {
