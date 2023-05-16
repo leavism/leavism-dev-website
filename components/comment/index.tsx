@@ -1,6 +1,6 @@
-import CommentAuth from './authbutton';
-import CommentList from './list';
-import CommentForm from './form';
+import CommentAuth from './CommentAuthButton';
+import CommentList from './CommentList';
+import CommentForm from './CommentForm';
 
 export default function Comment() {
   return (

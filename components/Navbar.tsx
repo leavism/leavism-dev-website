@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { type NextRouter, useRouter } from 'next/router';
-import Container from './container';
+import Container from './Container';
 
 export default function Navbar() {
   return (

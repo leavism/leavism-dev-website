@@ -3,14 +3,20 @@ import Image from 'next/image';
 import distanceToNow from 'lib/util/dateRelative';
 import { useRouter } from 'next/router';
 import { type Comment } from 'lib/util/interface';
+import { useTheme } from 'next-themes';
 
 function Comment({ key: id, authorId, content, createdAt }: Comment) {
   const { data: author } = api.user.getById.useQuery(authorId);
+  const { systemTheme } = useTheme();
+  const defaultProfile =
+    systemTheme === 'light'
+      ? '/light_default_profile.svg'
+      : '/dark_default_profile.svg';
   return (
     <>
       <div key={id} className="flex flex-row items-center gap-5">
         <Image
-          src={author?.image ?? ''}
+          src={author?.image ?? defaultProfile}
           width={54}
           height={54}
           className="!m-0 rounded-full"
@@ -32,7 +38,7 @@ function Comment({ key: id, authorId, content, createdAt }: Comment) {
 
 export default function CommentList() {
   const router = useRouter();
-  const postRouter = api.post.getPostBySlug;
+  const postRouter = api.post.getBlogBySlug;
   const { data: post } = postRouter.useQuery({
     slug: router.query.slug as string,
   });

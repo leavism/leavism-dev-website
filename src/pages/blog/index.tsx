@@ -1,8 +1,8 @@
-import Container from 'components/container';
+import Container from 'components/Container';
 import {
   LightBlogIndexLoader,
   DarkBlogIndexLoader,
-} from 'components/Blog/BlogIndexLoader';
+} from 'components/BlogIndexLoader';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { api } from '~/utils/api';

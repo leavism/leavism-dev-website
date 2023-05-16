@@ -2,10 +2,10 @@ import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import distanceToNow from 'lib/util/dateRelative';
 import { api } from '~/utils/api';
-import Comment from 'components/comment';
-import Container from 'components/container';
-import BlogView from 'components/blog/blogview';
-import { BlogLoader, DarkPostLoader } from 'components/blog/blogloader';
+import Comment from 'components/Comment';
+import Container from 'components/Container';
+import BlogView from 'components/Blog/BlogView';
+import { BlogLoader, DarkPostLoader } from 'components/BlogLoader';
 import { useTheme } from 'next-themes';
 
 export default function PostPage() {
