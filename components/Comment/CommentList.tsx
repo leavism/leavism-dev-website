@@ -38,13 +38,13 @@ function Comment({ key: id, authorId, content, createdAt }: Comment) {
 
 export default function CommentList() {
   const router = useRouter();
-  const postRouter = api.post.getBlogBySlug;
-  const { data: post } = postRouter.useQuery({
+  const blogRouter = api.blog.getBlogBySlug;
+  const { data: blog } = blogRouter.useQuery({
     slug: router.query.slug as string,
   });
 
   const { data: comments } = api.comment.listComments.useQuery({
-    postId: post?.id ?? -1,
+    blogId: blog?.id ?? -1,
   });
 
   return (

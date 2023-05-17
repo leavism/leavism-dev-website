@@ -9,7 +9,7 @@ export const commentRouter = createTRPCRouter({
   listComments: publicProcedure
     .input(
       z.object({
-        postId: z.number(),
+        blogId: z.number(),
       })
     )
     .query(async (opts) => {
@@ -21,10 +21,10 @@ export const commentRouter = createTRPCRouter({
             authorId: true,
             content: true,
             createdAt: true,
-            postId: true,
+            blogId: true,
           },
           where: {
-            postId: input.postId,
+            blogId: input.blogId,
           },
           orderBy: {
             createdAt: 'desc',
@@ -40,7 +40,7 @@ export const commentRouter = createTRPCRouter({
       z.object({
         content: z.string(),
         authorId: z.string(),
-        postId: z.number(),
+        blogId: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -49,7 +49,7 @@ export const commentRouter = createTRPCRouter({
           data: {
             content: input.content,
             authorId: ctx.session.user.id,
-            postId: input.postId,
+            blogId: input.blogId,
           },
         });
       } catch (error) {

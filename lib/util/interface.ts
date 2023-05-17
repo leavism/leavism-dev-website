@@ -5,7 +5,7 @@ export type Comment = {
   createdAt: Date;
 };
 
-export type Post = {
+export type Blog = {
   slug?: string;
   title?: string;
   author?: string;

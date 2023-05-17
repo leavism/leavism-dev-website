@@ -8,8 +8,8 @@ export default function CommentForm() {
   const [content, setContent] = useState('');
   const router = useRouter();
   const postComment = api.comment.postComment.useMutation();
-  const postRouter = api.post.getBlogBySlug;
-  const { data: post } = postRouter.useQuery({
+  const blogRouter = api.blog.getBlogBySlug;
+  const { data: blog } = blogRouter.useQuery({
     slug: router.query.slug as string,
   });
 
@@ -22,7 +22,7 @@ export default function CommentForm() {
       postComment.mutate({
         content,
         authorId: sessionData.user.id,
-        postId: post?.id ?? -1,
+        blogId: blog?.id ?? -1,
       });
     }
   }

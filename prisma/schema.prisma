@@ -46,11 +46,11 @@ model User {
   role          Role      @default(USER)
   accounts      Account[]
   sessions      Session[]
-  Post          Post[]
+  blog          Blog[]
   Comment       Comment[]
 }
 
-model Post {
+model Blog {
   id          Int       @id @default(autoincrement())
   title       String
   slug        String    @unique
@@ -69,13 +69,13 @@ model Comment {
   id        Int      @id @default(autoincrement())
   content   String
   authorId  String
-  postId    Int
+  blogId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
 
-  @@index([postId])
+  @@index([blogId])
   @@index([authorId])
 }
 

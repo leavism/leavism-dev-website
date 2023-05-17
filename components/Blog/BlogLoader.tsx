@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 export const BlogLoader = () => (
   <Container>
-    <ContentLoader viewBox="0 0 500 1000" title={'Loading post content'}>
+    <ContentLoader viewBox="0 0 500 1000" title={'Loading blog content'}>
       <rect x="0" y="0" rx="4" ry="4" width="50%" height="50" />
       <rect x="0" y="75" rx="4" ry="4" width="100%" height="25" />
       <rect x="0" y="110" rx="4" ry="4" width="13%" height="25" />
@@ -36,11 +36,11 @@ export const BlogLoader = () => (
   </Container>
 );
 
-export const DarkPostLoader = () => (
+export const DarkBlogLoader = () => (
   <Container>
     <ContentLoader
       viewBox="0 0 500 1000"
-      title={'Loading post content'}
+      title={'Loading blog content'}
       backgroundColor="#404040"
       foregroundColor="#525252"
     >
