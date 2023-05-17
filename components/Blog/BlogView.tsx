@@ -5,7 +5,7 @@ import remarkImages from 'remark-images';
 import Link from 'next/link';
 import { type Blog } from 'lib/util/interface';
 
-export default function BlogView(blog: Blog) {
+export default function BlogView({ blog }: { blog: Blog }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkImages]}
