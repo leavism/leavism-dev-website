@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import distanceToNow from 'lib/util/dateRelative';
@@ -5,42 +6,44 @@ import { api } from '~/utils/api';
 import Comment from 'components/Comment';
 import Container from 'components/Container';
 import BlogView from 'components/Blog/BlogView';
-import { BlogLoader, DarkPostLoader } from 'components/Blog/BlogLoader';
+import { BlogLoader, DarkBlogLoader } from 'components/Blog/BlogLoader';
 import { useTheme } from 'next-themes';
+import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
+import { type GetStaticProps } from 'next';
 
-export default function PostPage() {
+export default function BlogPage() {
   const router: NextRouter = useRouter();
-  const postSlug = api.post.getBlogBySlug;
-  const { data: post, isLoading } = postSlug.useQuery({
+  const { systemTheme } = useTheme();
+  const blogSlug = api.blog.getBlogBySlug;
+  const { data: blog, isLoading } = blogSlug.useQuery({
     slug: router.query.slug as string,
   });
-  const { systemTheme } = useTheme();
 
   if (isLoading) {
     if (systemTheme === 'light') return <BlogLoader />;
-    else if (systemTheme === 'dark') return <DarkPostLoader />;
+    else if (systemTheme === 'dark') return <DarkBlogLoader />;
   }
-  if (!post) return <ErrorPage statusCode={404} />;
+  if (!blog) return <ErrorPage statusCode={404} />;
 
   return (
     <Container>
       <div>
         <article>
           <header className="prose-base prose-zinc sm:prose-lg md:prose-xl lg:prose-2xl">
-            <h1 className="!mb-0 font-bold">{post?.title}</h1>
-            {post?.description ? (
-              <p className="!my-2">{post?.description}</p>
+            <h1 className="!mb-0 font-bold">{blog?.title}</h1>
+            {blog?.description ? (
+              <p className="!my-2">{blog?.description}</p>
             ) : null}
 
-            {post?.createdAt ? (
+            {blog?.createdAt ? (
               <time className="!mt-2 flex text-base text-gray-400">
-                {distanceToNow(new Date(post?.createdAt))}
+                {distanceToNow(new Date(blog?.createdAt))}
               </time>
             ) : null}
           </header>
 
           <section className="prose-base prose-neutral mt-10 sm:prose-base md:prose-lg lg:prose-lg prose-a:underline">
-            <BlogView post={post} />
+            <BlogView blog={blog} />
           </section>
         </article>
 
@@ -49,3 +52,22 @@ export default function PostPage() {
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ssg = generateSSGHelper();
+  const slug = context.params?.slug as string;
+
+  await ssg.blog.getBlogBySlug.prefetch({ slug });
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      slug,
+    },
+    revalidate: 600,
+  };
+};
+
+export const getStaticPaths = () => {
+  return { paths: [], fallback: 'blocking' };
+};

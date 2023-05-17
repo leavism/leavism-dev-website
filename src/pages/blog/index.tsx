@@ -6,9 +6,11 @@ import {
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { api } from '~/utils/api';
+import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
+import { type GetStaticProps } from 'next';
 
-export default function PostsPage() {
-  const { data: allPosts, isLoading } = api.post.listBlog.useQuery();
+export default function FeedPage() {
+  const { data: allBlogs, isLoading } = api.blog.listBlog.useQuery();
   const { systemTheme } = useTheme();
 
   if (isLoading) {
@@ -18,27 +20,27 @@ export default function PostsPage() {
 
   return (
     <Container>
-      {allPosts?.length ? (
-        allPosts.map((post) => (
-          <article key={post.slug} className="mb-10">
-            {post.slug ? (
-              <Link href={`/blog/${post.slug}`} className="font-bold">
-                <h1 className="!my-0">{post.title}</h1>
+      {allBlogs?.length ? (
+        allBlogs.map((blog) => (
+          <article key={blog.slug} className="mb-10">
+            {blog.slug ? (
+              <Link href={`/blog/${blog.slug}`} className="font-bold">
+                <h1 className="!my-0">{blog.title}</h1>
               </Link>
             ) : null}
-            <p className="!my-1">{post.description}</p>
-            {post.slug ? (
+            <p className="!my-1">{blog.description}</p>
+            {blog.slug ? (
               <Link
-                href={`/blog/${post.slug}`}
+                href={`/blog/${blog.slug}`}
                 className="relative font-medium !no-underline before:absolute before:-bottom-0.5 before:-left-0.5 before:-z-10 before:h-2.5 before:w-full before:bg-neutral-300 before:duration-300 before:ease-in-out before:hover:bottom-0 before:hover:h-full dark:before:bg-neutral-500"
               >
                 Read more
               </Link>
             ) : null}
-            {post.createdAt ? (
+            {blog.createdAt ? (
               <div className="text-base text-gray-400">
                 <time>
-                  {new Date(post.createdAt).toLocaleDateString('en-US', {
+                  {new Date(blog.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -54,3 +56,14 @@ export default function PostsPage() {
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const ssg = generateSSGHelper();
+  await ssg.blog.listBlog.prefetch();
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+    },
+  };
+};
