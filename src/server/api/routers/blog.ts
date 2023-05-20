@@ -27,7 +27,7 @@ export const BlogRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         slug: z.string(),
-        authordId: z.string(),
+        authorId: z.string(),
         content: z.string(),
         description: z.string(),
       })
@@ -38,7 +38,7 @@ export const BlogRouter = createTRPCRouter({
           data: {
             title: input.title,
             slug: input.slug,
-            authorId: input.authordId,
+            authorId: input.authorId,
             content: input.content,
             description: input.description,
           },
@@ -62,6 +62,121 @@ export const BlogRouter = createTRPCRouter({
           },
         });
         return blog;
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  editBlogContent: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+        content: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      try {
+        await ctx.prisma.blog.update({
+          where: {
+            slug: input.slug,
+          },
+          data: {
+            content: input.content,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  editBlog: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        oldSlug: z.string(),
+        newSlug: z.string(),
+        authorId: z.string(),
+        content: z.string(),
+        description: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      try {
+        await ctx.prisma.blog.update({
+          where: {
+            slug: input.oldSlug,
+          },
+          data: {
+            title: input.title,
+            slug: input.newSlug,
+            authorId: input.authorId,
+            content: input.content,
+            description: input.description,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  editBlogDescription: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+        description: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      try {
+        await ctx.prisma.blog.update({
+          where: {
+            slug: input.slug,
+          },
+          data: {
+            description: input.description,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  editBlogTitle: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+        title: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      try {
+        await ctx.prisma.blog.update({
+          where: {
+            slug: input.slug,
+          },
+          data: {
+            title: input.title,
+            slug: input.title.replaceAll('', '-'),
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  deleteBlog: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      try {
+        await ctx.prisma.blog.delete({
+          where: {
+            slug: input.slug,
+          },
+        });
       } catch (error) {
         console.log(error);
       }
