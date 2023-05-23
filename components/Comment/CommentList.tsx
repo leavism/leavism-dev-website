@@ -6,7 +6,7 @@ import { type Comment } from 'lib/util/interface';
 import { useTheme } from 'next-themes';
 
 function Comment({ key: id, authorId, content, createdAt }: Comment) {
-  const { data: author } = api.user.getById.useQuery(authorId);
+  const { data: author } = api.user.getUserById.useQuery(authorId);
   const { systemTheme } = useTheme();
   const defaultProfile =
     systemTheme === 'light'

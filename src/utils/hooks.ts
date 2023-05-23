@@ -3,7 +3,7 @@ import { api } from './api';
 
 export const useUserRole = () => {
   const { data: sessionData } = useSession();
-  const { data: user } = api.user.getById.useQuery(
+  const { data: user } = api.user.getUserById.useQuery(
     sessionData?.user.id as string
   );
 
