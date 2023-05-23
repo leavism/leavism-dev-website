@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { adminProcedure, createTRPCRouter, publicProcedure } from '../trpc';
 
 export const BlogRouter = createTRPCRouter({
   listBlog: publicProcedure.query(async ({ ctx }) => {
@@ -22,7 +22,7 @@ export const BlogRouter = createTRPCRouter({
       console.log(error);
     }
   }),
-  postBlog: protectedProcedure
+  postBlog: adminProcedure
     .input(
       z.object({
         title: z.string(),
@@ -66,7 +66,7 @@ export const BlogRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  editBlogContent: protectedProcedure
+  editBlogContent: adminProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -88,7 +88,7 @@ export const BlogRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  editBlog: protectedProcedure
+  editBlog: adminProcedure
     .input(
       z.object({
         title: z.string(),
@@ -118,7 +118,7 @@ export const BlogRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  editBlogDescription: protectedProcedure
+  editBlogDescription: adminProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -140,7 +140,7 @@ export const BlogRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  editBlogTitle: protectedProcedure
+  editBlogTitle: adminProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -163,7 +163,7 @@ export const BlogRouter = createTRPCRouter({
         console.log(error);
       }
     }),
-  deleteBlog: protectedProcedure
+  deleteBlog: adminProcedure
     .input(
       z.object({
         slug: z.string(),

@@ -25,6 +25,9 @@ declare module 'next-auth' {
       role: string;
     } & DefaultSession['user'];
   }
+  interface User {
+    role: string;
+  }
 
   interface Profile {
     id: string;
@@ -44,6 +47,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         // Add whatever data you need in the session here
         session.user.id = user.id;
+        session.user.role = user.role;
       }
       return session;
     },
