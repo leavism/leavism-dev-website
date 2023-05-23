@@ -1,7 +1,8 @@
 import Container from 'components/Container';
+import ProfileImage from 'components/ProfileImage';
 import { type Session } from 'next-auth';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import Image from 'next/image';
+import ErrorPage from 'next/error';
 
 type authButtonProps = {
   sessionData: Session | null;
@@ -21,21 +22,17 @@ function AuthButton({ sessionData, children }: authButtonProps) {
 
 export default function AdminAuth() {
   const { data: sessionData } = useSession();
+  if (!sessionData) return <ErrorPage statusCode={403} />;
 
   return (
     <Container>
       <div className="rounded-md border border-solid p-8">
         {sessionData ? (
           <div className="flex flex-col items-center justify-center gap-5">
-            {sessionData.user.image ? (
-              <Image
-                src={sessionData.user.image}
-                width={128}
-                height={128}
-                className="!m-0 rounded-full"
-                alt=""
-              />
-            ) : null}
+            <ProfileImage
+              imageURI={sessionData.user.image}
+              username={sessionData.user.name}
+            />
             <h3 className="!mt-0">{sessionData.user.name}</h3>
             <AuthButton sessionData={sessionData}>Sign out</AuthButton>
           </div>
