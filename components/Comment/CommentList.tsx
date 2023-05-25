@@ -1,3 +1,4 @@
+import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import { api } from '~/utils/api';
 import distanceToNow from 'lib/util/dateRelative';
@@ -32,8 +33,10 @@ export default function CommentList() {
     slug: router.query.slug as string,
   });
 
+  if (!blog) return <ErrorPage statusCode={400} />;
+
   const { data: comments } = api.comment.listComments.useQuery({
-    blogId: blog?.id ?? -1,
+    blogId: blog.id,
   });
 
   return (
