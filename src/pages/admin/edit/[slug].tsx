@@ -1,9 +1,8 @@
 import Container from 'components/Container';
 import { useSession } from 'next-auth/react';
-import Router, { useRouter } from 'next/router';
-import { useReducer, type FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useReducer, type FormEvent } from 'react';
 import { api } from '~/utils/api';
-import { useUserRole } from '~/utils/hooks';
 
 export default function BlogEdit() {
   const descriptionReducer = (
@@ -46,17 +45,10 @@ export default function BlogEdit() {
   const blogQuery = api.blog.getBlogBySlug;
   const router = useRouter();
   const { data: sessionData } = useSession();
-  const { admin } = useUserRole();
   const { data: blog } = blogQuery.useQuery({
     slug: router.query.slug as string,
   });
   const editBlogQuery = api.blog.editBlog.useMutation();
-
-  useEffect(() => {
-    if (!admin) {
-      void Router.push('/enter');
-    }
-  }, [admin]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     if (!blog) return;

@@ -1,15 +1,16 @@
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { api } from '~/utils/api';
+import isAdmin from '~/utils/isAdmin';
 import BlogEditButton from 'components/Admin/BlogAdminButton';
 import AdminAuth from 'components/Admin/AdminAuth';
 import Container from 'components/Container';
-import { type NextPage } from 'next';
-import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { api } from '~/utils/api';
-import { useUserRole } from '~/utils/hooks';
 
-const AdminPage: NextPage = () => {
-  const { admin } = useUserRole();
+export const getServerSideProps = isAdmin(() => {
+  return { props: {} };
+});
+
+const AdminPage = () => {
   const { data: allBlogs } = api.blog.listBlog.useQuery();
   const blogMutation = api.blog.deleteBlog.useMutation();
   const router = useRouter();
@@ -18,12 +19,6 @@ const AdminPage: NextPage = () => {
     blogMutation.mutate({ slug });
     router.reload();
   };
-
-  useEffect(() => {
-    if (!admin) {
-      void Router.push('/enter');
-    }
-  }, [admin]);
 
   return (
     <Container>

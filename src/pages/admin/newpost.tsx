@@ -1,9 +1,8 @@
 import Container from 'components/Container';
 import { useSession } from 'next-auth/react';
-import Router, { useRouter } from 'next/router';
-import { useReducer, type FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useReducer, type FormEvent } from 'react';
 import { api } from '~/utils/api';
-import { useUserRole } from '~/utils/hooks';
 
 export default function NewPost() {
   const descriptionReducer = (
@@ -45,13 +44,6 @@ export default function NewPost() {
 
   const router = useRouter();
   const { data: sessionData } = useSession();
-  const { admin } = useUserRole();
-
-  useEffect(() => {
-    if (!admin) {
-      void Router.push('/enter');
-    }
-  }, [admin]);
 
   const postBlog = api.blog.postBlog.useMutation();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
