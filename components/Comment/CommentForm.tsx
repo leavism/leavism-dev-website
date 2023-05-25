@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '~/utils/api';
 

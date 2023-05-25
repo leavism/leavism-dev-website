@@ -72,6 +72,10 @@ export default function BlogEdit() {
     await router.push(`/blog/${titleData.title?.replaceAll(' ', '-') ?? ''}`);
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   return (
     <Container>
       <div>
@@ -103,10 +107,18 @@ export default function BlogEdit() {
             name="content"
             defaultValue={blog?.content}
           ></textarea>
-          <input
-            className="flex h-fit w-fit justify-center self-end rounded-md border border-solid px-4 py-1 transition-all duration-150 ease-out hover:-translate-x-1 hover:border-gray-700 hover:shadow-[3px_3px_0px] focus-visible:outline-offset-1 dark:border dark:hover:border-white"
-            type="submit"
-          ></input>
+          <div className="flex flex-row justify-end gap-5">
+            <input
+              className="flex h-fit w-fit justify-center rounded-md border border-solid px-4 py-1 transition-all duration-150 ease-out hover:-translate-x-1 hover:border-gray-700 hover:shadow-[3px_3px_0px] focus-visible:outline-offset-1 dark:border dark:hover:border-white"
+              type="submit"
+            ></input>
+            <input
+              type="button"
+              className="flex h-fit w-fit justify-center rounded-md border border-solid px-4 py-1 transition-all duration-150 ease-out hover:-translate-x-1 hover:border-gray-700 hover:shadow-[3px_3px_0px] focus-visible:outline-offset-1 dark:border dark:hover:border-white"
+              onClick={handleCancel}
+              value="Cancel"
+            ></input>
+          </div>
         </form>
       </div>
     </Container>
