@@ -1,15 +1,33 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { type GetStaticProps } from 'next';
 import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
+import { useTheme } from 'next-themes';
+import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
 import distanceToNow from 'lib/util/dateRelative';
 import { api } from '~/utils/api';
 import Comment from 'components/Comment';
 import Container from 'components/Container';
 import BlogView from 'components/Blog/BlogView';
 import { BlogLoader, DarkBlogLoader } from 'components/Blog/BlogLoader';
-import { useTheme } from 'next-themes';
-import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
-import { type GetStaticProps } from 'next';
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ssg = generateSSGHelper();
+  const slug = context.params?.slug as string;
+
+  await ssg.blog.getBlogBySlug.prefetch({ slug });
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      slug,
+    },
+    revalidate: 600,
+  };
+};
+
+export const getStaticPaths = () => {
+  return { paths: [], fallback: 'blocking' };
+};
 
 export default function BlogPage() {
   const router: NextRouter = useRouter();
@@ -52,22 +70,3 @@ export default function BlogPage() {
     </Container>
   );
 }
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const ssg = generateSSGHelper();
-  const slug = context.params?.slug as string;
-
-  await ssg.blog.getBlogBySlug.prefetch({ slug });
-
-  return {
-    props: {
-      trpcState: ssg.dehydrate(),
-      slug,
-    },
-    revalidate: 600,
-  };
-};
-
-export const getStaticPaths = () => {
-  return { paths: [], fallback: 'blocking' };
-};

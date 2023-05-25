@@ -1,8 +1,13 @@
-import Container from 'components/Container';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useReducer, type FormEvent } from 'react';
 import { api } from '~/utils/api';
+import Container from 'components/Container';
+import isAdmin from '~/utils/isAdmin';
+
+export const getServerSideProps = isAdmin(() => {
+  return { props: {} };
+});
 
 export default function NewPost() {
   const descriptionReducer = (

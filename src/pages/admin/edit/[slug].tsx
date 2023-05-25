@@ -1,8 +1,13 @@
-import Container from 'components/Container';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useReducer, type FormEvent } from 'react';
 import { api } from '~/utils/api';
+import isAdmin from '~/utils/isAdmin';
+import Container from 'components/Container';
+
+export const getServerSideProps = isAdmin(() => {
+  return { props: {} };
+});
 
 export default function BlogEdit() {
   const descriptionReducer = (
@@ -51,9 +56,9 @@ export default function BlogEdit() {
   const editBlogQuery = api.blog.editBlog.useMutation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    if (!blog) return;
     event.preventDefault();
-    console.log(titleData);
+    if (!blog) return;
+
     const updatedBlogPost = {
       title: titleData.title ?? blog.title,
       oldSlug: router.query.slug as string,
@@ -62,6 +67,7 @@ export default function BlogEdit() {
       content: contentData.content ?? blog.content,
       description: descriptionData.description ?? blog.description,
     };
+
     editBlogQuery.mutate(updatedBlogPost);
     await router.push(`/blog/${titleData.title?.replaceAll(' ', '-') ?? ''}`);
   };

@@ -21,7 +21,7 @@ export default function BlogView({ blog }: { blog: Blog }) {
         ),
         a: (props) => (
           <Link
-            href={`${props.href ?? ''}`}
+            href={`${props.href ?? '/'}`}
             className="relative font-semibold !no-underline before:absolute before:-bottom-0.5 before:-left-0.5 before:-z-10 before:h-2.5 before:w-full before:bg-neutral-300 before:duration-300 before:ease-in-out before:hover:bottom-0 before:hover:h-full dark:before:bg-neutral-500"
           >
             {props.children}
@@ -40,7 +40,7 @@ export default function BlogView({ blog }: { blog: Blog }) {
         ),
       }}
     >
-      {blog.content ?? ''}
+      {blog.content ?? "Seems like there's no content"}
     </ReactMarkdown>
   );
 }

@@ -1,5 +1,5 @@
-import Container from 'components/Container';
 import ContentLoader from 'react-content-loader';
+import Container from 'components/Container';
 
 export const BlogLoader = () => (
   <Container>

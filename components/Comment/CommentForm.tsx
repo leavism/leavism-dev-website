@@ -1,30 +1,31 @@
 import { useSession } from 'next-auth/react';
-import { api } from '~/utils/api';
-import { type ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { api } from '~/utils/api';
+import ErrorPage from 'next/error';
 
 export default function CommentForm() {
-  const { data: sessionData } = useSession();
-  const [content, setContent] = useState('');
   const router = useRouter();
-  const postComment = api.comment.postComment.useMutation();
-  const blogRouter = api.blog.getBlogBySlug;
-  const { data: blog } = blogRouter.useQuery({
+  const [content, setContent] = useState('');
+  const { data: sessionData } = useSession();
+  const { data: blog } = api.blog.getBlogBySlug.useQuery({
     slug: router.query.slug as string,
   });
 
-  function handleOnChange(event: ChangeEvent<HTMLInputElement>): void {
+  function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
   }
 
-  function handleSubmit(): void {
-    if (sessionData) {
-      postComment.mutate({
-        content,
-        authorId: sessionData.user.id,
-        blogId: blog?.id ?? -1,
-      });
-    }
+  function handleSubmit() {
+    if (!blog) return <ErrorPage statusCode={400} />;
+    if (!sessionData) return <ErrorPage statusCode={400} />;
+
+    const postComment = api.comment.postComment.useMutation();
+    postComment.mutate({
+      content,
+      authorId: sessionData.user.id,
+      blogId: blog.id,
+    });
   }
 
   return (

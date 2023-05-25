@@ -2,7 +2,7 @@ import { type GetServerSidePropsContext } from 'next';
 import { getServerAuthSession } from '~/server/auth';
 
 export default function isAdmin(checkAdmin: {
-  (arg0: GetServerSidePropsContext): unknown;
+  (context: GetServerSidePropsContext): unknown;
   checkAdmin?: () => { props: unknown };
 }) {
   return async (context: GetServerSidePropsContext) => {

@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import ProfileImage from 'components/ProfileImage';
 import { api } from '~/utils/api';
 import distanceToNow from 'lib/util/dateRelative';
 import { type Comment } from 'lib/util/interface';
+import ProfileImage from 'components/ProfileImage';
 
 function Comment({ key: id, authorId, content, createdAt }: Comment) {
   const { data: author } = api.user.getUserById.useQuery(authorId);

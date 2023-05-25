@@ -1,6 +1,6 @@
 import { type Session } from 'next-auth';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 type authButtonProps = {
   sessionData: Session | null;

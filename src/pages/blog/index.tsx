@@ -1,13 +1,13 @@
+import { type GetStaticProps } from 'next';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import { api } from '~/utils/api';
+import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
 import Container from 'components/Container';
 import {
   LightBlogIndexLoader,
   DarkBlogIndexLoader,
 } from 'components/Blog/BlogIndexLoader';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { api } from '~/utils/api';
-import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
-import { type GetStaticProps } from 'next';
 
 export default function FeedPage() {
   const { data: allBlogs, isLoading } = api.blog.listBlog.useQuery();
