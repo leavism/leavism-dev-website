@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '~/utils/api';
 
@@ -33,6 +33,8 @@ export default function CommentForm() {
         value={content}
         onChange={(event) => handleOnChange(event)}
         disabled={!sessionData}
+        minLength={2}
+        maxLength={150}
       />
       <input
         className="ml-auto flex h-fit justify-center rounded-md border border-solid border-neutral-500 px-4 py-1 transition-all duration-150 ease-out hover:-translate-x-1 hover:border-gray-700 hover:shadow-[3px_3px_0px] focus-visible:outline-offset-1 disabled:text-neutral-400 disabled:hover:translate-x-0 disabled:hover:border-neutral-200 disabled:hover:shadow-none dark:border dark:hover:border-white"
