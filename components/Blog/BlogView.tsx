@@ -38,6 +38,7 @@ export default function BlogView({ blog }: { blog: Blog }) {
             {props.children}
           </code>
         ),
+        li: (props) => <li className=" list-disc">{props.children}</li>,
       }}
     >
       {blog.content ?? "Seems like there's no content"}
