@@ -2,12 +2,23 @@ import { type GetStaticProps } from 'next';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { api } from '~/utils/api';
-import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
+import { generateSSHelper } from '~/server/api/helpers/serverSideHelper';
 import Container from 'components/Container';
 import {
   LightBlogIndexLoader,
   DarkBlogIndexLoader,
 } from 'components/Blog/BlogIndexLoader';
+
+export const getStaticProps: GetStaticProps = async () => {
+  const ssgHelper = generateSSHelper();
+  await ssgHelper.blog.listBlog.prefetch();
+
+  return {
+    props: {
+      trpcState: ssgHelper.dehydrate(),
+    },
+  };
+};
 
 export default function FeedPage() {
   const { data: allBlogs, isLoading } = api.blog.listBlog.useQuery();
@@ -56,14 +67,3 @@ export default function FeedPage() {
     </Container>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const ssg = generateSSGHelper();
-  await ssg.blog.listBlog.prefetch();
-
-  return {
-    props: {
-      trpcState: ssg.dehydrate(),
-    },
-  };
-};
