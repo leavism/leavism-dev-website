@@ -2,15 +2,20 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { api } from '~/utils/api';
 import isAdmin from '~/utils/isAdmin';
+import { generateSSHelper } from '~/server/api/helpers/serverSideHelper';
 import BlogEditButton from 'components/Admin/BlogAdminButton';
 import AdminAuth from 'components/Admin/AdminAuth';
 import Container from 'components/Container';
 
-export const getServerSideProps = isAdmin(() => {
-  return { props: {} };
+export const getServerSideProps = isAdmin(async (context) => {
+  const ssrHelper = generateSSHelper();
+  await ssrHelper.blog.listBlog.prefetch();
+  await ssrHelper.user.getUserById.prefetch(context.params?.id as string);
+
+  return { props: { trpcState: ssrHelper.dehydrate() } };
 });
 
-const AdminPage = () => {
+export default function AdminPage() {
   const { data: allBlogs } = api.blog.listBlog.useQuery();
   const blogMutation = api.blog.deleteBlog.useMutation();
   const router = useRouter();
@@ -64,6 +69,4 @@ const AdminPage = () => {
       </div>
     </Container>
   );
-};
-
-export default AdminPage;
+}

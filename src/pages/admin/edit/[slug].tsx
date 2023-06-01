@@ -4,9 +4,15 @@ import { useReducer, type FormEvent } from 'react';
 import { api } from '~/utils/api';
 import isAdmin from '~/utils/isAdmin';
 import Container from 'components/Container';
+import { generateSSHelper } from '~/server/api/helpers/serverSideHelper';
 
-export const getServerSideProps = isAdmin(() => {
-  return { props: {} };
+export const getServerSideProps = isAdmin(async (context) => {
+  const ssrHelper = generateSSHelper();
+  await ssrHelper.blog.getBlogBySlug.prefetch({
+    slug: context.params?.slug as string,
+  });
+
+  return { props: { trpcState: ssrHelper.dehydrate() } };
 });
 
 export default function BlogEdit() {
