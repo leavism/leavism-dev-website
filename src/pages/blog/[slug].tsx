@@ -1,17 +1,18 @@
 import { type GetStaticProps } from 'next';
-import { type NextRouter, useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { useTheme } from 'next-themes';
-import { generateSSGHelper } from '~/server/api/helpers/ssgHelper';
+import { generateSSHelper } from '~/server/api/helpers/serverSideHelper';
 import distanceToNow from 'lib/util/dateRelative';
 import { api } from '~/utils/api';
 import Comment from 'components/Comment';
 import Container from 'components/Container';
 import BlogView from 'components/Blog/BlogView';
 import { BlogLoader, DarkBlogLoader } from 'components/Blog/BlogLoader';
+import { prisma } from '~/server/db';
+import { type Blog } from 'lib/util/interface';
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const ssg = generateSSGHelper();
+  const ssg = generateSSHelper();
   const slug = context.params?.slug as string;
 
   await ssg.blog.getBlogBySlug.prefetch({ slug });
@@ -24,16 +25,28 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths = () => {
-  return { paths: [], fallback: 'blocking' };
+export const getStaticPaths = async () => {
+  const allBlogs = await prisma.blog.findMany({
+    select: {
+      slug: true,
+    },
+  });
+
+  return {
+    paths: allBlogs.map((blog) => ({
+      params: {
+        slug: blog.slug,
+      },
+    })),
+    fallback: 'blocking',
+  };
 };
 
-export default function BlogPage() {
-  const router: NextRouter = useRouter();
+export default function BlogPage(props: Blog) {
   const { systemTheme } = useTheme();
-  const blogSlug = api.blog.getBlogBySlug;
-  const { data: blog, isLoading } = blogSlug.useQuery({
-    slug: router.query.slug as string,
+  const { slug } = props;
+  const { data: blog, isLoading } = api.blog.getBlogBySlug.useQuery({
+    slug,
   });
 
   if (isLoading) {

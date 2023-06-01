@@ -6,11 +6,11 @@ export type Comment = {
 };
 
 export type Blog = {
-  slug?: string;
-  title?: string;
-  author?: string;
-  date?: Date;
-  content?: string;
-  excerpt?: string;
+  slug: string;
+  title: string;
+  authorId: string;
+  createdAt: Date;
+  content: string;
+  description: string;
   [key: string]: unknown;
 };
